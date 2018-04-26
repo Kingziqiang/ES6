@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Object.entries</title>
+</head>
+
+<body>
+  <script>
+    let obj = {
+      name: 'wzq',
+      age: 20,
+      hobby: {
+        'play': 'pingpang'
+      }
+    };
+
+    //1.不会处理obj内部的对象
+    console.log(Object.entries(obj)); //[["name", "wzq"],["age", 20],["hobby", {…}]]
+
+    //2.类数组对象
+    let obj_1 = {
+      0: 'a',
+      1: 'b',
+      2: 'c',
+      3: 'd'
+    };
+    console.log(Object.entries(obj_1));
+    // [["0", "a"],["1", "b"],["2", "c"],["3", "d"]]
+
+
+    //3.随机键值的类数组对象
+    //会自动排序
+    let obj_2 = {
+      100: 'a',
+      1: 'b',
+      40: 'c',
+      21: 'd'
+    };
+    console.log(Object.entries(obj_2));
+    // [ ["1", "b"],["21", "d"],["40", "c"],["100", "a"]]
+
+
+    //4. 参数是非对象会转变成对象
+    console.log(Object.entries("wzq")); // [["0":"w"], ["1":"z"], ["2":"q"]]
+
+    //5.getFoo 是不可枚举属性
+    var my_obj = Object.create({}, {
+      getFoo: {
+        value: function () {
+          return this.foo;
+        }
+      }
+    });
+    my_obj.foo = "bar";
+    console.log(Object.entries(my_obj)); // [ ['foo', 'bar'] ]
+
+    //6. 遍历键值
+
+    for (const [key, value] of Object.entries(obj)) {
+      console.log(`${key} ${value}`);
+    }
+    //6.1
+    Object.entries(obj).forEach(([key, value]) => {
+      console.log(`${key} ${value}`);
+    });
+
+    //7.将Object转换为Map
+    let obj_7 = {
+      foo: "bar",
+      baz: 42
+    };
+    let map = new Map(Object.entries(obj));
+    console.log(map); // Map { foo: "bar", baz: 42 }
+  </script>
+</body>
+
+</html>
