@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>include</title>
+</head>
+
+<body>
+  <script>
+    //Array.prototype.includes(searchElement[, fromIndex]);
+    let ary = [0, 1, 2, undefined, NaN];
+    //1.与indexOf()方法比较
+    console.log(ary.includes(undefined)); //true
+    console.log(ary.includes(NaN)); //true
+    console.log(ary.includes(4)); //false
+    //indexOf()不支持查找NaN
+    console.log(ary.indexOf(NaN)); //3
+    console.log(ary.includes(undefined)) //-1
+
+
+    //2.当fromIndex大于或等于数组长度时
+    console.log(ary.includes(NaN, 4)); //true
+    //等于数组长度
+    console.log(ary.includes(NaN, 5)); //false
+    //大于数组长度
+    console.log(ary.includes(NaN, 10)); //false
+
+
+    //3.当fromIndex小于0时
+    //3.1.fromIndex的绝对值大于0小于ary.length时
+    //搜索范围从ary.length+(fromIndex)开始到数组的末尾。
+    console.log(ary.includes(2, -3));//true
+    console.log(ary.includes(2, -2));//false
+    //3.2.fromIndex的绝对值大于ary.length时
+    //搜索返回是整个数组ary.length+(fromIndex)<0
+    console.log(ary.includes(0, -30));//true
+    console.log(ary.includes(2, -20));//true
+  </script>
+</body>
+
+</html>
