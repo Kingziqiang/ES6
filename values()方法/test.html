@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Object.values()</title>
+</head>
+
+<body>
+  <script>
+    //1.obj内置的对象没有扩展成数组
+    let obj = {
+      name: 'wzq',
+      age: 20,
+      hobby: {
+        'play': 'pingpang'
+      }
+    };
+    console.log(Object.values(obj)); // ["wzq", 20, {…}]
+
+    //2.类数组对象
+    let obj_1 = {
+      0: 'a',
+      1: 'b',
+      2: 'c',
+      3: 'd'
+    };
+    console.log(Object.values(obj_1)); // ["a", "b", "c", "d"]
+
+    //3.随机键值的类数组对象
+    //会自动排序
+    let obj_2 = {
+      100: 'a',
+      1: 'b',
+      40: 'c',
+      21: 'd'
+    };
+    console.log(Object.values(obj_2)); // ["b", "d", "c", "a"]
+
+    //4. 参数是非对象会转变成对象
+    console.log(Object.values("wzq")); // ['w', 'z', 'q']
+
+    //5.getFoo 是不可枚举属性
+    var my_obj = Object.create({}, {
+      getFoo: {
+        value: function () {
+          return this.foo;
+        }
+      }
+    });
+    my_obj.foo = "bar";
+    console.log(Object.values(my_obj)); // ['bar']
+
+
+    //用Object.key()来实现Object.values()
+    let value = Object.keys(obj_1).map(key => obj_1[key]);
+    //同下面
+    // let value = Object.keys(obj_1).map(key => {
+    //   return obj_1[key];
+    // })
+    console.log(value);// ["a", "b", "c", "d"]
+  </script>
+</body>
+
+</html>
